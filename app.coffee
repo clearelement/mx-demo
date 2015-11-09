@@ -33,7 +33,7 @@ frame.centerX()
 
 navBarContainer = new Layer
 	width: frame.width, height: 70
-	backgroundColor: null
+	backgroundColor: "002E4D"
 	superLayer: frame
 
 mgpLogo = new Layer
@@ -130,12 +130,22 @@ for layer in mainNav
 	
 overviewNav.states.switchInstant("default")
 
+contentScroll = new ScrollComponent
+	width: frame.width, height: frame.height - 70
+	y: 70
+	mouseWheelEnabled: true
+	scrollHorizontal: false
+	superLayer: frame
+contentScroll.contentInset = 
+	bottom: 100
+
+
 cardContainer = new Layer
 	width: 1064, height: 703
-	y: navBarContainer.maxY + 50
+	y: 50
 	backgroundColor: null
 	clip: false
-	superLayer: frame
+	superLayer: contentScroll.content
 cardContainer.centerX()
 
 planSuccess = new Layer
@@ -302,7 +312,7 @@ playZone = new Layer
 	
 networthValue = new TextLayer
 # 	autoSize: true
-	width: 111.5, height: 26
+	width: 113, height: 26
 	text: "$2,089,663"
 	fontSize: 21
 	letterSpacing: 0.5
@@ -313,7 +323,7 @@ networthValue = new TextLayer
 	
 networthGains = new Layer
 	width: 112, height: 12
-	maxX: networthValue.maxX, y: 68
+	maxX: networthValue.maxX - 2, y: 68
 	image: "images/networthGains.png"
 	superLayer: netWorth
 	
@@ -378,7 +388,6 @@ spendingPie = new Layer
 spendingPie.centerX()
 
 spendingValue = new TextLayer
-# 	autoSize: true
 	width: 67, height: 26
 	text: "$6,754"
 	fontSize: 21
@@ -711,6 +720,7 @@ loginForm.on Events.Click, ->
 				curve: "spring(80, 20, 0)"
 				
 		Utils.delay 1.75, ->
+			fadeIn(budgetsHeader)
 			for layer in bubbleBudgets
 				layer.states.switch('default')
 				
@@ -740,6 +750,8 @@ for layer, index in cardContainer.subLayers
 			properties: scale: 1
 			
 goalsSidebar.ignoreEvents = true
+
+navBarContainer.bringToFront()
 			
 		
 		
